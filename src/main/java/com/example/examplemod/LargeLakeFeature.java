@@ -66,17 +66,17 @@ public class LargeLakeFeature extends Feature<LargeLakeFeature.Configuration> {
 
             BlockState blockstate1 = lakefeature$configuration.fluid().getState(randomsource, blockpos);
 
-            for(int k1 = 0; k1 < 16; ++k1) {
-                for(int k = 0; k < 16; ++k) {
-                    for(int l2 = 0; l2 < 8; ++l2) {
-                        boolean flag = !booleans[(k1 * 16 + k) * 8 + l2] && (k1 < 15 && booleans[((k1 + 1) * 16 + k) * 8 + l2] || k1 > 0 && booleans[((k1 - 1) * 16 + k) * 8 + l2] || k < 15 && booleans[(k1 * 16 + k + 1) * 8 + l2] || k > 0 && booleans[(k1 * 16 + (k - 1)) * 8 + l2] || l2 < 7 && booleans[(k1 * 16 + k) * 8 + l2 + 1] || l2 > 0 && booleans[(k1 * 16 + k) * 8 + (l2 - 1)]);
+            for(int x = 0; x < 16; ++x) {
+                for(int z = 0; z < 16; ++z) {
+                    for(int y = 0; y < 8; ++y) {
+                        boolean flag = !booleans[(x * 16 + z) * 8 + y] && (x < 15 && booleans[((x + 1) * 16 + z) * 8 + y] || x > 0 && booleans[((x - 1) * 16 + z) * 8 + y] || z < 15 && booleans[(x * 16 + z + 1) * 8 + y] || z > 0 && booleans[(x * 16 + (z - 1)) * 8 + y] || y < 7 && booleans[(x * 16 + z) * 8 + y + 1] || y > 0 && booleans[(x * 16 + z) * 8 + (y - 1)]);
                         if (flag) {
-                            Material material = worldgenlevel.getBlockState(blockpos.offset(k1, l2, k)).getMaterial();
-                            if (l2 >= 4 && material.isLiquid()) {
+                            Material material = worldgenlevel.getBlockState(blockpos.offset(x, y, z)).getMaterial();
+                            if (y >= 4 && material.isLiquid()) {
                                 return false;
                             }
 
-                            if (l2 < 4 && !material.isSolid() && worldgenlevel.getBlockState(blockpos.offset(k1, l2, k)) != blockstate1) {
+                            if (y < 4 && !material.isSolid() && worldgenlevel.getBlockState(blockpos.offset(x, y, z)) != blockstate1) {
                                 return false;
                             }
                         }
@@ -84,13 +84,13 @@ public class LargeLakeFeature extends Feature<LargeLakeFeature.Configuration> {
                 }
             }
 
-            for(int l1 = 0; l1 < 16; ++l1) {
-                for(int i2 = 0; i2 < 16; ++i2) {
-                    for(int i3 = 0; i3 < 8; ++i3) {
-                        if (booleans[(l1 * 16 + i2) * 8 + i3]) {
-                            BlockPos offset = blockpos.offset(l1, i3, i2);
+            for(int x = 0; x < 16; ++x) {
+                for(int z = 0; z < 16; ++z) {
+                    for(int y = 0; y < 8; ++y) {
+                        if (booleans[(x * 16 + z) * 8 + y]) {
+                            BlockPos offset = blockpos.offset(x, y, z);
                             if (this.canReplaceBlock(worldgenlevel.getBlockState(offset))) {
-                                boolean flag1 = i3 >= 4;
+                                boolean flag1 = y >= 4;
                                 worldgenlevel.setBlock(offset, flag1 ? AIR : blockstate1, 2);
                                 if (flag1) {
                                     worldgenlevel.scheduleTick(offset, AIR.getBlock(), 0);
@@ -104,16 +104,16 @@ public class LargeLakeFeature extends Feature<LargeLakeFeature.Configuration> {
 
             BlockState blockstate2 = lakefeature$configuration.barrier().getState(randomsource, blockpos);
             if (!blockstate2.isAir()) {
-                for(int j2 = 0; j2 < 16; ++j2) {
-                    for(int j3 = 0; j3 < 16; ++j3) {
-                        for(int l3 = 0; l3 < 8; ++l3) {
-                            boolean flag2 = !booleans[(j2 * 16 + j3) * 8 + l3] && (j2 < 15 && booleans[((j2 + 1) * 16 + j3) * 8 + l3] || j2 > 0 && booleans[((j2 - 1) * 16 + j3) * 8 + l3] || j3 < 15 && booleans[(j2 * 16 + j3 + 1) * 8 + l3] || j3 > 0 && booleans[(j2 * 16 + (j3 - 1)) * 8 + l3] || l3 < 7 && booleans[(j2 * 16 + j3) * 8 + l3 + 1] || l3 > 0 && booleans[(j2 * 16 + j3) * 8 + (l3 - 1)]);
-                            if (flag2 && (l3 < 4 || randomsource.nextInt(2) != 0)) {
-                                BlockState blockstate = worldgenlevel.getBlockState(blockpos.offset(j2, l3, j3));
+                for(int x = 0; x < 16; ++x) {
+                    for(int z = 0; z < 16; ++z) {
+                        for(int y = 0; y < 8; ++y) {
+                            boolean flag2 = !booleans[(x * 16 + z) * 8 + y] && (x < 15 && booleans[((x + 1) * 16 + z) * 8 + y] || x > 0 && booleans[((x - 1) * 16 + z) * 8 + y] || z < 15 && booleans[(x * 16 + z + 1) * 8 + y] || z > 0 && booleans[(x * 16 + (z - 1)) * 8 + y] || y < 7 && booleans[(x * 16 + z) * 8 + y + 1] || y > 0 && booleans[(x * 16 + z) * 8 + (y - 1)]);
+                            if (flag2 && (y < 4 || randomsource.nextInt(2) != 0)) {
+                                BlockState blockstate = worldgenlevel.getBlockState(blockpos.offset(x, y, z));
                                 if (blockstate.getMaterial().isSolid() && !blockstate.is(BlockTags.LAVA_POOL_STONE_CANNOT_REPLACE)) {
-                                    BlockPos blockpos3 = blockpos.offset(j2, l3, j3);
-                                    worldgenlevel.setBlock(blockpos3, blockstate2, 2);
-                                    this.markAboveForPostProcessing(worldgenlevel, blockpos3);
+                                    BlockPos offset = blockpos.offset(x, y, z);
+                                    worldgenlevel.setBlock(offset, blockstate2, 2);
+                                    this.markAboveForPostProcessing(worldgenlevel, offset);
                                 }
                             }
                         }
@@ -122,12 +122,12 @@ public class LargeLakeFeature extends Feature<LargeLakeFeature.Configuration> {
             }
 
             if (blockstate1.getFluidState().is(FluidTags.WATER)) {
-                for(int k2 = 0; k2 < 16; ++k2) {
-                    for(int k3 = 0; k3 < 16; ++k3) {
-                        int i4 = 4;
-                        BlockPos blockpos2 = blockpos.offset(k2, i4, k3);
-                        if (worldgenlevel.getBiome(blockpos2).value().shouldFreeze(worldgenlevel, blockpos2, false) && this.canReplaceBlock(worldgenlevel.getBlockState(blockpos2))) {
-                            worldgenlevel.setBlock(blockpos2, Blocks.ICE.defaultBlockState(), 2);
+                for(int x = 0; x < 16; ++x) {
+                    for(int z = 0; z < 16; ++z) {
+                        int y = 4;
+                        BlockPos offset = blockpos.offset(x, y, z);
+                        if (worldgenlevel.getBiome(offset).value().shouldFreeze(worldgenlevel, offset, false) && this.canReplaceBlock(worldgenlevel.getBlockState(offset))) {
+                            worldgenlevel.setBlock(offset, Blocks.ICE.defaultBlockState(), 2);
                         }
                     }
                 }
