@@ -1,0 +1,9 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#minecraft:is_overworld",
+  "features": [
+    "examplemod:large_lake_lava_underground",
+    "examplemod:large_lake_lava_surface"
+  ],
+  "step": "lakes"
+}
