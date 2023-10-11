@@ -30,7 +30,6 @@ public class LargeLakeFeature extends Feature<LargeLakeFeature.Configuration> {
      */
     public boolean place(FeaturePlaceContext<Configuration> pContext) {
         BlockPos blockpos = pContext.origin();
-        System.out.println("Placed Lake at:"+blockpos);
         WorldGenLevel worldgenlevel = pContext.level();
         RandomSource randomsource = pContext.random();
         Configuration configuration = pContext.config();
@@ -46,16 +45,16 @@ public class LargeLakeFeature extends Feature<LargeLakeFeature.Configuration> {
                 double d0 = randomsource.nextDouble() * 6.0D + 3.0D;
                 double d1 = randomsource.nextDouble() * 4.0D + 2.0D;
                 double d2 = randomsource.nextDouble() * 6.0D + 3.0D;
-                double d3 = randomsource.nextDouble() * (16.0D - d0 - 2.0D) + 1.0D + d0 / 2.0D;
-                double d4 = randomsource.nextDouble() * (8.0D - d1 - 4.0D) + 2.0D + d1 / 2.0D;
-                double d5 = randomsource.nextDouble() * (16.0D - d2 - 2.0D) + 1.0D + d2 / 2.0D;
+                double dx = randomsource.nextDouble() * (16.0D - d0 - 2.0D) + 1.0D + d0 / 2.0D;
+                double dy = randomsource.nextDouble() * (8.0D - d1 - 4.0D) + 2.0D + d1 / 2.0D;
+                double dz = randomsource.nextDouble() * (16.0D - d2 - 2.0D) + 1.0D + d2 / 2.0D;
 
                 for(int x = 1; x < 15; ++x) {
                     for(int z = 1; z < 15; ++z) {
                         for(int y = 1; y < 7; ++y) {
-                            double d6 = ((double)x - d3) / (d0 / 2.0D);
-                            double d7 = ((double)y - d4) / (d1 / 2.0D);
-                            double d8 = ((double)z - d5) / (d2 / 2.0D);
+                            double d6 = ((double)x - dx) / (d0 / 2.0D);
+                            double d7 = ((double)y - dy) / (d1 / 2.0D);
+                            double d8 = ((double)z - dz) / (d2 / 2.0D);
                             double distSquare = d6 * d6 + d7 * d7 + d8 * d8;
                             if (distSquare < 1.0D) {
                                 int index = (x * 16 + z) * 8 + y;
@@ -134,6 +133,7 @@ public class LargeLakeFeature extends Feature<LargeLakeFeature.Configuration> {
                     }
                 }
             }
+            System.out.println("Placed Lake at:"+blockpos);
             return true;
         }
     }
