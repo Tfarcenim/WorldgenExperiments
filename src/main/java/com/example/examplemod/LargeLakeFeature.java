@@ -30,9 +30,10 @@ public class LargeLakeFeature extends Feature<LargeLakeFeature.Configuration> {
      */
     public boolean place(FeaturePlaceContext<Configuration> pContext) {
         BlockPos blockpos = pContext.origin();
+        System.out.println("Placed Lake at:"+blockpos);
         WorldGenLevel worldgenlevel = pContext.level();
         RandomSource randomsource = pContext.random();
-        Configuration lakefeature$configuration = pContext.config();
+        Configuration configuration = pContext.config();
         //check if too low
         if (blockpos.getY() <= worldgenlevel.getMinBuildHeight() + 4) {
             return false;
@@ -49,22 +50,23 @@ public class LargeLakeFeature extends Feature<LargeLakeFeature.Configuration> {
                 double d4 = randomsource.nextDouble() * (8.0D - d1 - 4.0D) + 2.0D + d1 / 2.0D;
                 double d5 = randomsource.nextDouble() * (16.0D - d2 - 2.0D) + 1.0D + d2 / 2.0D;
 
-                for(int l = 1; l < 15; ++l) {
-                    for(int i1 = 1; i1 < 15; ++i1) {
-                        for(int j1 = 1; j1 < 7; ++j1) {
-                            double d6 = ((double)l - d3) / (d0 / 2.0D);
-                            double d7 = ((double)j1 - d4) / (d1 / 2.0D);
-                            double d8 = ((double)i1 - d5) / (d2 / 2.0D);
-                            double d9 = d6 * d6 + d7 * d7 + d8 * d8;
-                            if (d9 < 1.0D) {
-                                booleans[(l * 16 + i1) * 8 + j1] = true;
+                for(int x = 1; x < 15; ++x) {
+                    for(int z = 1; z < 15; ++z) {
+                        for(int y = 1; y < 7; ++y) {
+                            double d6 = ((double)x - d3) / (d0 / 2.0D);
+                            double d7 = ((double)y - d4) / (d1 / 2.0D);
+                            double d8 = ((double)z - d5) / (d2 / 2.0D);
+                            double distSquare = d6 * d6 + d7 * d7 + d8 * d8;
+                            if (distSquare < 1.0D) {
+                                int index = (x * 16 + z) * 8 + y;
+                                booleans[index] = true;
                             }
                         }
                     }
                 }
             }
 
-            BlockState blockstate1 = lakefeature$configuration.fluid().getState(randomsource, blockpos);
+            BlockState blockstate1 = configuration.fluid().getState(randomsource, blockpos);
 
             for(int x = 0; x < 16; ++x) {
                 for(int z = 0; z < 16; ++z) {
@@ -102,7 +104,7 @@ public class LargeLakeFeature extends Feature<LargeLakeFeature.Configuration> {
                 }
             }
 
-            BlockState blockstate2 = lakefeature$configuration.barrier().getState(randomsource, blockpos);
+            BlockState blockstate2 = configuration.barrier().getState(randomsource, blockpos);
             if (!blockstate2.isAir()) {
                 for(int x = 0; x < 16; ++x) {
                     for(int z = 0; z < 16; ++z) {
@@ -132,7 +134,6 @@ public class LargeLakeFeature extends Feature<LargeLakeFeature.Configuration> {
                     }
                 }
             }
-
             return true;
         }
     }
