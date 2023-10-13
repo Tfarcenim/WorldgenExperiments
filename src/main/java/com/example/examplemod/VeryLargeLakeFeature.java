@@ -44,11 +44,16 @@ public class VeryLargeLakeFeature extends Feature<VeryLargeLakeFeature.Configura
             //first make the shape
             boolean[] fill = new boolean[configuration.width * configuration.depth * configuration.width];
 
-            Vec3 center = new Vec3(configuration.width/2d,configuration.depth/2d,configuration.width/2d);
+            double w = configuration.width/2d;
+            double d = configuration.depth/2d;
+
+            //an oblate spheroid looks like x^2/a^2 + y^2/b^2 + z^2/c^2 = 1
+            //in this case it's 4 * x^2/width^2 +4 * y^2/depth^2 + 4 * z^2/width^2 = 1
+            Vec3 center = new Vec3(w,d,w);
             for (int y = 0; y < configuration.depth;y++) {
                 for (int z = 0; z < configuration.width;z++) {
                     for (int x = 0; x < configuration.width;x++) {
-                        int index = x + configuration.width * z + configuration.width * configuration.depth * y;
+                        int index = x + configuration.width * z + configuration.width * configuration.width * y;
                         double x1 = x - center.x;
                         double y1 = y - center.y;
                         double z1 = z - center.z;
@@ -57,7 +62,7 @@ public class VeryLargeLakeFeature extends Feature<VeryLargeLakeFeature.Configura
                         double yd = 2 * y1 / configuration.depth;
                         double zd = 2 * z1 / configuration.width;
                         double dist = xd * xd + yd * yd + zd * zd;
-                        if (dist <= 1) {
+                        if (dist < 1) {
                             fill[index] = true;
                         }
                     }
@@ -69,7 +74,7 @@ public class VeryLargeLakeFeature extends Feature<VeryLargeLakeFeature.Configura
             for (int y = 0; y < configuration.depth;y++) {
                 for (int z = 0; z < configuration.width;z++) {
                     for (int x = 0; x < configuration.width;x++) {
-                        int index = x + configuration.width * z + configuration.width * configuration.depth * y;
+                        int index = x + configuration.width * z + configuration.width * configuration.width * y;
                         if (fill[index]) {
                             //offset so that we're centered on the lake, then offset again for the loop
                             BlockPos check = origin.offset(x-center.x,y-center.y,z-center.z);
@@ -87,7 +92,7 @@ public class VeryLargeLakeFeature extends Feature<VeryLargeLakeFeature.Configura
             for (int y = 0; y < configuration.depth;y++) {
                 for (int z = 0; z < configuration.width;z++) {
                     for (int x = 0; x < configuration.width;x++) {
-                        int index = x + configuration.width * z + configuration.width * configuration.depth * y;
+                        int index = x + configuration.width * z + configuration.width * configuration.width * y;
                         //offset so that we're centered on the lake, then offset again for the loop
                         BlockPos check = origin.offset(x-center.x,y-center.y,z-center.z);
                         if (fill[index] && canReplaceBlock(worldgenlevel.getBlockState(check))) {
