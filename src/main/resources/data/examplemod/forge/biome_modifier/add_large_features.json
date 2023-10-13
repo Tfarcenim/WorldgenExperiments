@@ -1,0 +1,8 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#minecraft:has_structure/desert_pyramid",
+  "features": [
+    "examplemod:very_large_lake_lava_underground"
+  ],
+  "step": "lakes"
+}

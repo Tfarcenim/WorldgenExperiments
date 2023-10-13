@@ -27,6 +27,7 @@ public class ExampleMod {
 
     private void register(RegisterEvent event) {
         event.register(Registry.FEATURE_REGISTRY,new ResourceLocation(MODID,"large_lake"),() -> ModFeatures.LARGE_LAKE);
+        event.register(Registry.FEATURE_REGISTRY,new ResourceLocation(MODID,"very_large_lake"),() -> ModFeatures.VERY_LARGE_LAKE);
     }
 
     private void setup(final FMLCommonSetupEvent event) {

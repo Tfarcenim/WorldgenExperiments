@@ -7,6 +7,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfigur
 public class ModFeatures {
 
     public static final Feature<LargeLakeFeature.Configuration> LARGE_LAKE = new LargeLakeFeature(LargeLakeFeature.Configuration.CODEC);
+    public static final Feature<VeryLargeLakeFeature.Configuration> VERY_LARGE_LAKE = new VeryLargeLakeFeature(VeryLargeLakeFeature.Configuration.CODEC);
 
 
     private static <C extends FeatureConfiguration, F extends Feature<C>> F register(String pKey, F pValue) {
