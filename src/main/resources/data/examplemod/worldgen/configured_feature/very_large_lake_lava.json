@@ -1,12 +1,6 @@
 {
   "type": "examplemod:very_large_lake",
   "config": {
-    "barrier": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "minecraft:stone"
-      }
-    },
     "fluid": {
       "type": "minecraft:simple_state_provider",
       "state": {
@@ -16,7 +10,9 @@
         }
       }
     },
-    "width": 24,
-    "depth": 12
+    "min_width": 16,
+    "max_width": 32,
+    "min_depth": 16,
+    "max_depth": 32
   }
 }
