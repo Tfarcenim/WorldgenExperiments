@@ -38,7 +38,7 @@ public class VeryLargeLakeFeature extends Feature<VeryLargeLakeFeature.Configura
         Configuration configuration = pContext.config();
         int depth = configuration.min_depth + randomsource.nextInt(configuration.max_depth - configuration.min_depth);//pick random number in range [min_depth,max_depth)
         //check if too low
-        if (origin.getY() <= worldgenlevel.getMinBuildHeight() + depth) {
+        if (origin.getY() <= worldgenlevel.getMinBuildHeight() + depth/2) {
             return false;
         } else {
             int width = configuration.max_width + randomsource.nextInt(configuration.max_width - configuration.min_width);//pick random number in range [min_width,max_width)
